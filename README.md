@@ -19,12 +19,15 @@ Lists DynamoDB rewards.
 ```
 {
   "status": Number,
-  "content": {
-    "promoter": String,
-    "title": String,
-    "description": String,
-    "location": Number[]
-  }
+  "content": [
+    {
+      "id": String,
+      "title": String,
+      "description": String,
+      "location": Number[],
+      "image": String
+    }
+  ]
 }
 ```
 

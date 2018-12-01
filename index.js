@@ -3,8 +3,8 @@ const ddb = new AWS.DynamoDB()
 const TableName = process.env.DDB_TABLE
 
 exports.handler = (event, _, callback) => {
-  return Promise.resolve(event.body)
-    .then(JSON.parse)
+  console.log(event)
+  return Promise.resolve(event.pathParameters)
     .then(({ promoter }) => {
       return typeof promoter === 'string'
         ? promoter
@@ -19,7 +19,7 @@ exports.handler = (event, _, callback) => {
         status: error.status || 500,
         body: {
           status: error.status || 500,
-          error: error.message || 'InternalServerError'
+          message: error.message || 'InternalServerError'
         }
       }
     })
