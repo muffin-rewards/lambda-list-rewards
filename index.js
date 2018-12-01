@@ -3,18 +3,40 @@ const ddb = new AWS.DynamoDB()
 const TableName = process.env.DDB_TABLE
 
 exports.handler = (event, _, callback) => {
-  console.log(event)
   return Promise.resolve(event.pathParameters)
-    .then(({ promoter }) => {
-      return typeof promoter === 'string'
-        ? promoter
+    .then(({ slug }) => {
+      return typeof slug === 'string'
+        ? slug
         : Promise.reject({ status: 422, message: 'UnprocessableEntity' })
     })
-    .then(promoter => ddb.getItem({ TableName, Key: { promoter: { S: promoter } } }))
-    .then(result => console.log('result', result))
-    .catch((error) => {
-      console.log('error', error)
-
+    .then((promoter) => {
+      return ddb.query({
+        IndexName: 'promoter-index',
+        TableName,
+        KeyConditionExpression: 'promoter = :p',
+        ExpressionAttributeValues: {
+          ':p': { S: promoter }
+        }
+      }).promise()
+    })
+    .then((result) => {
+      return {
+        status: 200,
+        body: {
+          status: 200,
+          content: result.Items.map((item) => {
+            return {
+              id: item.id.S,
+              title: item.title.S,
+              description: item.description.S,
+              image: item.image.S,
+              location: item.location.NS
+            }
+          })
+        }
+      }
+    })
+    .catch((error = {}) => {
       return {
         status: error.status || 500,
         body: {
