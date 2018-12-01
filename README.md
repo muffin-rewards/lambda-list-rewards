@@ -1,6 +1,6 @@
 # AWS Lambda: List Rewards
 
-Lists DynamoDB resources.
+Lists DynamoDB rewards.
 
 ## Enviroment variables
 
@@ -8,9 +8,25 @@ Lists DynamoDB resources.
 
 ## Responses
 
-### 404
-### 422
+### 500, 404, 422
+```
+{
+  "status": Number,
+  "message": String
+}
+```
 ### 200
+```
+{
+  "status": Number,
+  "content": {
+    "promoter": String,
+    "title": String,
+    "description": String,
+    "location": Number[]
+  }
+}
+```
 
 ## Deployment
 Deploy with `npm run deploy:{env}`.

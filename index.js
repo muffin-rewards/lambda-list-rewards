@@ -8,27 +8,24 @@ exports.handler = (event, _, callback) => {
     .then(({ promoter }) => {
       return typeof promoter === 'string'
         ? promoter
-        : Promise.reject({
-          status: 422,
-          message: 'UnprocessableEntity'
-        })
+        : Promise.reject({ status: 422, message: 'UnprocessableEntity' })
     })
     .then(promoter => ddb.getItem({ TableName, Key: { promoter: { S: promoter } } }))
     .then(result => console.log('result', result))
-    .then(res => callback(null, {
-      statusCode: 200,
-      body: JSON.stringify(res)
-    }))
     .catch((error) => {
       console.log('error', error)
 
-      return error.status && error.message
-        ? error
-        : { status: 500, message: 'InternalServerError' }
+      return {
+        status: error.status || 500,
+        body: {
+          status: error.status || 500,
+          error: error.message || 'InternalServerError'
+        }
+      }
     })
-    .then(({ status, message }) => callback(null, {
+    .then(({ status, body }) => callback(null, {
       statusCode: status,
-      body: JSON.stringify({ status, message }),
+      body: JSON.stringify(body),
       headers: { 'Access-Control-Allow-Origin': '*' }
     }))
 }
