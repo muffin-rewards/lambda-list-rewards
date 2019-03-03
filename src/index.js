@@ -14,7 +14,7 @@ exports.handler = (_event, _context, callback) => {
           rewardDetails: item.rewardDetails.S,
           rewardImage: item.rewardImage.S,
           slug: item.slug.S,
-          termsAndConditions: item.termsAndConditions.S,
+          termsAndConditions: item.termsAndConditions.SS,
         }))
       }
     })
