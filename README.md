@@ -2,34 +2,28 @@
 
 Lists DynamoDB rewards.
 
-## Enviroment variables
+## Deployment
+To deploy for production use `npm run deploy:prod`.
 
-* `DDB_TABLE` that the rewards are stored in.
+### Enviroment variables
+- `REWARDS_TABLE` that the rewards are stored in.
 
 ## Responses
 
-### 500, 404, 422
-```
-{
-  "status": Number,
-  "message": String
-}
-```
+### 500
+Returns a string in body with error information.
+
 ### 200
 ```
-{
-  "status": Number,
-  "content": [
-    {
-      "id": String,
-      "title": String,
-      "description": String,
-      "location": Number[],
-      "image": String
-    }
-  ]
-}
+[
+  {
+    promoter: String,
+    promoterName: String,
+    reward: String,
+    rewardDetails: String,
+    rewardImage: String,
+    slug: String,
+    termsAndConditions: String,
+  }
+]
 ```
-
-## Deployment
-Deploy with `npm run deploy:{env}`.
