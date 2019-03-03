@@ -8,11 +8,11 @@ exports.handler = (_event, _context, callback) => {
       return {
         statusCode: 200,
         body: result.Items.map((item) => ({
+          details: item.details.S,
+          image: item.image.S,
+          name: item.name.S,
           promoter: item.promoter.S,
           promoterName: item.promoterName.S,
-          reward: item.reward.S,
-          rewardDetails: item.rewardDetails.S,
-          rewardImage: item.rewardImage.S,
           slug: item.slug.S,
           termsAndConditions: item.termsAndConditions.SS,
         }))

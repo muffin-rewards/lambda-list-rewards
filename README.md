@@ -19,9 +19,9 @@ Returns a string in body with error information.
   {
     promoter: String,
     promoterName: String,
-    reward: String,
-    rewardDetails: String,
-    rewardImage: String,
+    name: String,
+    details: String,
+    image: String,
     slug: String,
     termsAndConditions: String,
   }
