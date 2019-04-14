@@ -24,6 +24,7 @@ Returns a string in body with error information.
     image: String,
     slug: String,
     termsAndConditions: String,
+    show: Boolean,
   }
 ]
 ```
