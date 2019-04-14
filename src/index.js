@@ -13,7 +13,7 @@ exports.handler = (_event, _context, callback) => {
           name: item.name.S,
           promoter: item.promoter.S,
           promoterName: item.promoterName.S,
-          shown: item.show.BOOL,
+          show: item.show.BOOL,
           slug: item.slug.S,
           termsAndConditions: item.termsAndConditions.SS,
         }))
